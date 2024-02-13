@@ -11,10 +11,10 @@ CLIENT_SECRET = getenv('CLIENT_SECRET')
 AGENT_ID = getenv('GEN_AI_AGENTS_ID')
 API_ENDPOINT = getenv('GEN_AI_AGENTS_ENDPOINT')
 
-st.title("AI Brown Bag Seminar #7")
+st.title('AI Brown Bag Seminar #7')
 
 def get_access_token():
-    """Obtain an access token using client credentials grant""" 
+    """Obtain an access token using client credentials grant"""
     well_known_response = requests.get(
         url=IDENTITY_DOMAINS_HOST + '/.well-known/openid-configuration'
     )
@@ -39,6 +39,7 @@ def get_access_token():
         return access_token
 
 def generative_ai_agent(query: str, access_token: str):
+    """Invoke chat endpoint"""
     headers = {
         'Authorization': f'Bearer {access_token}',
         'Content-type': 'application/json'
@@ -63,17 +64,21 @@ def generative_ai_agent(query: str, access_token: str):
 def chat():
     access_token = get_access_token()
     if prompt := st.chat_input("What's up?"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
+        st.session_state.messages.append({'role': 'user', 'content': prompt})
+        with st.chat_message('user'):
             st.markdown(prompt)
-        with st.chat_message("assistant"):
+        with st.chat_message('assistant'):
             message_placeholder = st.empty()
             response = generative_ai_agent(prompt, access_token)
             message_placeholder.markdown(response['output'])
-        st.session_state.messages.append({"role": "user", "content": response})
+        st.session_state.messages.append({'role': 'assistant', 'content': response['output']})
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Initialize chat history
-    if "messages" not in st.session_state:
+    if 'messages' not in st.session_state:
         st.session_state.messages = []
+    # Display chat messages from history an app rerun
+    for message in st.session_state.messages:
+        with st.chat_message(message['role']):
+            st.markdown(message['content'])
     chat()
