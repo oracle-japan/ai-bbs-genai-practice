@@ -1,0 +1,19 @@
+{
+    "description": "Role to be used by Generative AI Agent having read only permission to all Indexes",
+    "cluster_permissions": [
+        "cluster_composite_ops_ro"
+    ],
+    "index_permissions": [
+        {
+            "index_patterns": [
+                "*"
+            ],
+            "fls": [],
+            "masked_fields": [],
+            "allowed_actions": [
+                "read"
+            ]
+        }
+    ],
+    "tenant_permissions": []
+}

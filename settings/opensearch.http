@@ -1,0 +1,71 @@
+### API Endpoints
+@opensearch_endpoint = <opensearch_endpoint>
+@openid_connect_base_url = <openid_connect_base_url>
+@agent_api_endpoint = <generative_ai_agent_service_api_endpoint>
+
+### Credentials
+@opensearch_username = <opensearch_username>
+@opensearch_password = <opensearch_password>
+@credential = <client_id>:<client_secret>(base64 encoded)
+
+### Security config
+GET {{opensearch_endpoint}}/_plugins/_security/api/securityconfig HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+
+### Set OpenID Configuration
+PUT {{opensearch_endpoint}}/_plugins/_security/api/securityconfig/config HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+Content-Type: application/json
+
+< ./parameters/security-config.json
+
+
+### Cluster Health checks
+GET {{opensearch_endpoint}}/_cluster/health HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+
+### Get index
+GET {{opensearch_endpoint}}/oci HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+
+###
+# @name wellKnown
+GET {{openid_connect_base_url}}/.well-known/openid-configuration HTTP/1.1
+
+###
+# @name getAt
+POST {{wellKnown.response.body.token_endpoint}} HTTP/1.1
+Authorization: Basic {{credential}}
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+
+grant_type=client_credentials&scope={{agent_api_endpoint}}/genaiagent
+
+### Create Index
+PUT {{opensearch_endpoint}}/oci HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+
+### Load data
+POST {{opensearch_endpoint}}/oci/_bulk?pretty HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+Content-Type: Bearer {{getAt.response.body.access_token}}
+
+< ./parameters/oci-services.json
+
+### Create role
+PUT {{opensearch_endpoint}}/_plugins/_security/api/roles/genaiagent HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+Content-Type: application/json
+
+< ./parameters/create-role.json
+
+### Create rolemapping
+PUT {{opensearch_endpoint}}/_plugins/_security/api/rolesmapping/genaiagent HTTP/1.1
+Authorization: Basic {{opensearch_username}}:{{opensearch_password}}
+Content-Type: application/json
+ 
+< ./parameters/create-role-mapping.json
+
+### Index search
+GET {{opensearch_endpoint}}/oci/_search?q=region HTTP/1.1
+Authorization: Bearer {{getAt.response.body.access_token}}
+Content-Type: application/json

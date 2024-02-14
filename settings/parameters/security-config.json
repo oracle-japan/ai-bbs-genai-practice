@@ -1,0 +1,41 @@
+{
+    "dynamic": {
+        "authc": {
+            "openid_auth_domain": {
+                "http_enabled": true,
+                "transport_enabled": true,
+                "order": 0,
+                "http_authenticator": {
+                    "challenge": false,
+                    "type": "openid",
+                    "config": {
+                        "subject_key": "sub",
+                        "roles_key": "scope",
+                        "openid_connect_url": "https://idcs-f0017...identity.oraclecloud.com/.well-known/openid-configuration"
+                    }
+                },
+                "authentication_backend": {
+                    "type": "noop",
+                    "config": {}
+                },
+                "description": "Authenticate using OpenId connect"
+            },
+            "basic_internal_auth_domain": {
+                "http_enabled": true,
+                "transport_enabled": true,
+                "order": 1,
+                "http_authenticator": {
+                    "challenge": true,
+                    "type": "basic",
+                    "config": {}
+                },
+                "authentication_backend": {
+                    "type": "intern",
+                    "config": {}
+                },
+                "description": "Authenticate via HTTP Basic against internal users database"
+            }
+        },
+        "authz": null
+    }
+}

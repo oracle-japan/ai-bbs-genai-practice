@@ -1,0 +1,7 @@
+{
+    "backend_roles": [
+        "genaiagent"
+    ],
+    "hosts": [],
+    "users": []
+}
