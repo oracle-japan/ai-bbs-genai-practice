@@ -15,6 +15,17 @@ Oracle AI Brown Bag Seminar #7 OCI Generative AI Service 実践編で使用し�
 └── requirements.txt
 ```
 
+## Prerequired
+
+- OCI Search Service with OpenSearch, OCI Cache with Redis が作成可能なネットワークリソースが作成済みであること
+- OCI Search Service with OpenSearch v2.3.0+ がプロビジョニング済みであること
+- OCI Cache with Redis がプロビジョニング済みであること
+- OCI Search Service with OpenSearch にアクセス可能な Compute インスタンスがプロビジョニング済みであること
+
+### OpenSearch に対するセキュリティ設定
+
+`settings/opensearch.http` に記載されている内容を順番に実行してください。`settings/parameters` は自身の環境に合わせて適宜修正してください。
+
 ## Notebooks
 
 `.env-template` をコピーし、`.env` を作成してください。内容は、ご自身の環境に合わせて適宜修正してください。
