@@ -30,7 +30,8 @@ def generate_text(query: str):
             inference_request=CohereLlmInferenceRequest(
                 prompt=query,
                 is_stream=False,
-                num_generations=1
+                num_generations=1,
+                max_tokens=500
             )
         )
     )

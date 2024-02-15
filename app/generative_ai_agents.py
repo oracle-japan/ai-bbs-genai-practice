@@ -20,13 +20,15 @@ def generate_text(query: str, access_token: str):
         'agentId': AGENT_ID,
         'query': query,
         'shouldReturnSearchDocuments': True,
+        'generateTextParameter': {
+            'maxTokens': 500
+        }
     }
     response = requests.post(
         url=f'{API_ENDPOINT}/20240331/actions/chat',
         json=payload,
         headers=headers,
         verify=False,
-        stream=True
     )
     if not response.status_code == 200:
         raise Exception('Failed to obtain query response.')
