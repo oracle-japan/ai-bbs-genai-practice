@@ -45,4 +45,10 @@ def chat():
         with st.chat_message('assistant'):
             message_placeholder = st.empty()
             response = generate_text(prompt, access_token)
-            message_placeholder.markdown(response['output'])
+            output_template = f"""
+            {response['output']}  
+            ---  
+            ref:  
+            {response['documents'][0]['url']}
+            """
+            message_placeholder.markdown(output_template)
