@@ -13,7 +13,7 @@ charset-normalizer==3.3.2
 circuitbreaker==1.4.0
 click==8.1.7
 comm==0.2.1
-cryptography==41.0.7
+cryptography==42.0.3
 dataclasses-json==0.6.4
 debugpy==1.8.0
 decorator==5.1.1
@@ -49,6 +49,7 @@ mypy-extensions==1.0.0
 nest-asyncio==1.6.0
 numpy==1.26.4
 oci==2.121.1
+oracledb @ file:///home/oracle/work/drivers/oracledb-2.0.0.dev20231121-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl#sha256=eb0001ccf34e172ce15622b6867c73d29b235ec65139aabf12e8f5c64ddac079
 packaging==23.2
 pandas==2.2.0
 parso==0.8.3
