@@ -17,7 +17,7 @@ def generate_text(query: str):
 
     Question: {question}
     """
-    prompt = PromptTemplate.from_template(template=template,)
+    prompt = PromptTemplate.from_template(template=template)
     llm = OCIGenAI(
         auth_type="INSTANCE_PRINCIPAL",
         service_endpoint=SERVICE_ENDPOINT,
