@@ -39,7 +39,7 @@ def generate_text(query: str):
     return {"output": output, "url": documents[0].metadata.get("url", "")}
 
 def chat():
-    st.title("💬 Oracle Database 23c - AI Vector Search")
+    st.title("💬 Oracle Database 23c - AI Vector Search w/ LangChain")
     if prompt := st.chat_input("What's up?"):
         st.session_state.chat_messages.append({'role': 'user', 'content': prompt})
         with st.chat_message('user'):
