@@ -7,6 +7,7 @@ import generative_ai
 import generative_ai_agents
 import ai_vector_search_langchain as ai_vector_search_langchain
 import ai_vector_search_llamaindex as ai_vector_search_llamaindex
+import rinna
 
 load_dotenv()
 AGENT_ID = getenv("GEN_AI_AGENTS_ID")
@@ -17,7 +18,8 @@ with st.sidebar.container():
         sac.MenuItem(label="OCI Generative AI Service"),
         sac.MenuItem(label="OCI Generative AI Service + AI Agents"),
         sac.MenuItem(label="Oracle Database 23c AI Vector Search w/ LangChain"),
-        sac.MenuItem(label="Oracle Database 23c AI Vector Search w/ LlamaIndex")
+        sac.MenuItem(label="Oracle Database 23c AI Vector Search w/ LlamaIndex"),
+        sac.MenuItem(label="rinna/japanese-gpt2-small")
     ],
     index=0
 )
@@ -37,3 +39,5 @@ if __name__ == "__main__":
         ai_vector_search_langchain.chat()
     if menu == "Oracle Database 23c AI Vector Search w/ LlamaIndex":
         ai_vector_search_llamaindex.chat()
+    if menu == "rinna/japanese-gpt2-small":
+        rinna.chat()
