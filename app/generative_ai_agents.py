@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 from os import getenv
 from dotenv import load_dotenv
-import auth
+import auth.auth as auth
 
 load_dotenv()
 AGENT_ID = getenv('GEN_AI_AGENTS_ID')
