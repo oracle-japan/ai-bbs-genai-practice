@@ -5,7 +5,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_community.llms.oci_generative_ai import OCIGenAI
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
-from oracle_retriever import OracleRetriever
+from retriever.oracle_retriever import OracleRetriever
 
 load_dotenv()
 COMPARTMENT_ID = getenv("COMPARTMENT_ID")
@@ -24,7 +24,7 @@ def generate_text(query: str):
         model_id="cohere.command",
         compartment_id=COMPARTMENT_ID,
         model_kwargs={
-            'max_tokens': 500
+            "max_tokens": 500
         }
     )
     retriever = OracleRetriever()
@@ -40,17 +40,17 @@ def generate_text(query: str):
 
 def chat():
     st.title("💬 Oracle Database 23c - AI Vector Search w/ LangChain")
-    if prompt := st.chat_input("What's up?"):
-        st.session_state.chat_messages.append({'role': 'user', 'content': prompt})
-        with st.chat_message('user'):
+    if prompt := st.chat_input('What"s up?'):
+        st.session_state.chat_messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
             st.markdown(prompt)
-        with st.chat_message('assistant'):
+        with st.chat_message("assistant"):
             message_placeholder = st.empty()
             response = generate_text(prompt)
             output_template = f"""
-                {response['output']}  
+                {response["output"]}  
                 ---  
                 ref:  
-                {response['url']}
+                {response["url"]}
             """
             message_placeholder.markdown(output_template)
