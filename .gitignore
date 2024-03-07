@@ -1,4 +1,4 @@
 .env
 __pycache__
-app/oracle_retriever.py
+app/retriever
 notebooks/04_getting_started_oracle_database_23c_ai_vector_search.ipynb
